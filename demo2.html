@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>数字时钟</title>
+    <style>
+        .back {
+            width: 400px;
+            height: 156px;
+            margin: 50px auto;
+            background: darkgray;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .content {
+            width: 360px;
+            height: 106px;
+            background: black;
+            margin-top: 25px;
+            position: relative;
+        }
+        
+        .one {
+            width: 50px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+        }
+        
+        .two {
+            width: 50px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+            left: 50px;
+        }
+        
+        .three {
+            width: 30px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+            left: 100px;
+        }
+        
+        .four {
+            width: 50px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+            left: 130px;
+        }
+        
+        .five {
+            width: 50px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+            left: 180px;
+        }
+        
+        .six {
+            width: 30px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+            left: 230px;
+        }
+        
+        .seven {
+            width: 50px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+            left: 260px;
+        }
+        
+        .eight {
+            width: 50px;
+            height: 90px;
+            margin-top: 10px;
+            position: absolute;
+            left: 310px;
+        }
+        
+        .part-1 {
+            width: 30px;
+            height: 6px;
+            background: white;
+            position: absolute;
+            left: 10px;
+        }
+        
+        .part-1::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid white;
+            border-left: 3px solid;
+            border-right: 3px solid white;
+            border-bottom: 3px solid;
+        }
+        
+        .part-1::after {
+            content: "";
+            position: absolute;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            border-right: 3px solid;
+            border-bottom: 3px solid;
+        }
+        
+        .part-2 {
+            width: 30px;
+            height: 6px;
+            background: white;
+            position: absolute;
+            left: 10px;
+            top: 40px
+        }
+        
+        .part-2::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid;
+            border-right: 3px solid white;
+            border-bottom: 3px solid;
+        }
+        
+        .part-2::after {
+            content: "";
+            position: absolute;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid white;
+            border-right: 3px solid;
+            border-bottom: 3px solid;
+        }
+        
+        .part-3 {
+            width: 30px;
+            height: 6px;
+            background: white;
+            position: absolute;
+            left: 10px;
+            top: 80px
+        }
+        
+        .part-3::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+        }
+        
+        .part-3::after {
+            content: "";
+            position: absolute;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid white;
+            border-right: 3px solid;
+            border-bottom: 3px solid white;
+        }
+        
+        .part-4 {
+            width: 6px;
+            height: 24px;
+            background: white;
+            position: absolute;
+            left: 42px;
+            top: 9px;
+        }
+        
+        .part-4::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+        }
+        
+        .part-4::after {
+            content: "";
+            position: absolute;
+            top: 24px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid white;
+            border-left: 3px solid;
+            border-right: 3px solid white;
+            border-bottom: 3px solid;
+        }
+        
+        .part-5 {
+            width: 6px;
+            height: 24px;
+            background: white;
+            position: absolute;
+            left: 42px;
+            top: 50px;
+        }
+        
+        .part-5::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+        }
+        
+        .part-5::after {
+            content: "";
+            position: absolute;
+            top: 24px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid white;
+            border-left: 3px solid;
+            border-right: 3px solid white;
+            border-bottom: 3px solid;
+        }
+        
+        .part-6 {
+            width: 6px;
+            height: 24px;
+            background: white;
+            position: absolute;
+            left: 3px;
+            top: 9px;
+        }
+        
+        .part-6::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid white;
+            border-right: 3px solid;
+            border-bottom: 3px solid white;
+        }
+        
+        .part-6::after {
+            content: "";
+            position: absolute;
+            top: 24px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            border-right: 3px solid;
+            border-bottom: 3px solid;
+        }
+        
+        .part-7 {
+            width: 6px;
+            height: 24px;
+            background: white;
+            position: absolute;
+            left: 3px;
+            top: 50px;
+        }
+        
+        .part-7::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid;
+            border-left: 3px solid white;
+            border-right: 3px solid;
+            border-bottom: 3px solid white;
+        }
+        
+        .part-7::after {
+            content: "";
+            position: absolute;
+            top: 24px;
+            width: 0;
+            height: 0;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            border-right: 3px solid;
+            border-bottom: 3px solid;
+        }
+        
+        .point-1 {
+            width: 8px;
+            height: 8px;
+            background: white;
+            position: absolute;
+            top: 23px;
+            left: 11px;
+        }
+        
+        .point-2 {
+            width: 8px;
+            height: 8px;
+            background: white;
+            position: absolute;
+            top: 55px;
+            left: 11px;
+        }
+        
+        .change::before {
+            border: 0;
+        }
+        
+        .change::after {
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <div class="content">
+            <div class="one">
+                <div class="part-1"></div>
+                <div class="part-2"></div>
+                <div class="part-3"></div>
+                <div class="part-4"></div>
+                <div class="part-5"></div>
+                <div class="part-6"></div>
+                <div class="part-7"></div>
+            </div>
+            <div class="two">
+                <div class="part-1"></div>
+                <div class="part-2"></div>
+                <div class="part-3"></div>
+                <div class="part-4"></div>
+                <div class="part-5"></div>
+                <div class="part-6"></div>
+                <div class="part-7"></div>
+            </div>
+            <div class="three">
+                <div class="point-1"></div>
+                <div class="point-2"></div>
+            </div>
+            <div class="four">
+                <div class="part-1"></div>
+                <div class="part-2"></div>
+                <div class="part-3"></div>
+                <div class="part-4"></div>
+                <div class="part-5"></div>
+                <div class="part-6"></div>
+                <div class="part-7"></div>
+            </div>
+            <div class="five">
+                <div class="part-1"></div>
+                <div class="part-2"></div>
+                <div class="part-3"></div>
+                <div class="part-4"></div>
+                <div class="part-5"></div>
+                <div class="part-6"></div>
+                <div class="part-7"></div>
+            </div>
+            <div class="six">
+                <div class="point-1"></div>
+                <div class="point-2"></div>
+            </div>
+            <div class="seven">
+                <div class="part-1"></div>
+                <div class="part-2"></div>
+                <div class="part-3"></div>
+                <div class="part-4"></div>
+                <div class="part-5"></div>
+                <div class="part-6"></div>
+                <div class="part-7"></div>
+            </div>
+            <div class="eight">
+                <div class="part-1"></div>
+                <div class="part-2"></div>
+                <div class="part-3"></div>
+                <div class="part-4"></div>
+                <div class="part-5"></div>
+                <div class="part-6"></div>
+                <div class="part-7"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    window.onload = function() {
+        setInterval(function() {
+            getDigit();
+        }, 1000);
+    }
+
+    function getDigit() {
+        // get the present time
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+        // six digits
+        var d1, d2, d3, d4, d5, d6;
+        d1 = parseInt(hour / 10);
+        d2 = hour % 10;
+        d3 = parseInt(min / 10);
+        d4 = min % 10;
+        d5 = parseInt(sec / 10);
+        d6 = sec % 10;
+        showDigit(".one", d1);
+        showDigit(".two", d2);
+        showDigit(".four", d3);
+        showDigit(".five", d4);
+        showDigit(".seven", d5);
+        showDigit(".eight", d6);
+    }
+
+    function showDigit(name, num) {
+        // initial
+        $(name + " .part-1").css("background", "white");
+        $(name + " .part-1").removeClass("change");
+        $(name + " .part-2").css("background", "white");
+        $(name + " .part-2").removeClass("change");
+        $(name + " .part-3").css("background", "white");
+        $(name + " .part-3").removeClass("change");
+        $(name + " .part-4").css("background", "white");
+        $(name + " .part-4").removeClass("change");
+        $(name + " .part-5").css("background", "white");
+        $(name + " .part-5").removeClass("change");
+        $(name + " .part-6").css("background", "white");
+        $(name + " .part-6").removeClass("change");
+        $(name + " .part-7").css("background", "white");
+        $(name + " .part-7").removeClass("change");
+        // show digit
+        if (num === 1) {
+            $(name + " .part-1").css("background", "black");
+            $(name + " .part-1").addClass("change");
+            $(name + " .part-2").css("background", "black");
+            $(name + " .part-2").addClass("change");
+            $(name + " .part-3").css("background", "black");
+            $(name + " .part-3").addClass("change");
+            $(name + " .part-6").css("background", "black");
+            $(name + " .part-6").addClass("change");
+            $(name + " .part-7").css("background", "black");
+            $(name + " .part-7").addClass("change");
+        }
+        if (num === 2) {
+            $(name + " .part-5").css("background", "black");
+            $(name + " .part-5").addClass("change");
+            $(name + " .part-6").css("background", "black");
+            $(name + " .part-6").addClass("change");
+        }
+        if (num === 3) {
+            $(name + " .part-6").css("background", "black");
+            $(name + " .part-6").addClass("change");
+            $(name + " .part-7").css("background", "black");
+            $(name + " .part-7").addClass("change");
+        }
+        if (num === 4) {
+            $(name + " .part-1").css("background", "black");
+            $(name + " .part-1").addClass("change");
+            $(name + " .part-3").css("background", "black");
+            $(name + " .part-3").addClass("change");
+            $(name + " .part-7").css("background", "black");
+            $(name + " .part-7").addClass("change");
+        }
+        if (num === 5) {
+            $(name + " .part-4").css("background", "black");
+            $(name + " .part-4").addClass("change");
+            $(name + " .part-7").css("background", "black");
+            $(name + " .part-7").addClass("change");
+        }
+        if (num === 6) {
+            $(name + " .part-4").css("background", "black");
+            $(name + " .part-4").addClass("change");
+        }
+        if (num === 7) {
+            $(name + " .part-2").css("background", "black");
+            $(name + " .part-2").addClass("change");
+            $(name + " .part-3").css("background", "black");
+            $(name + " .part-3").addClass("change");
+            $(name + " .part-6").css("background", "black");
+            $(name + " .part-6").addClass("change");
+            $(name + " .part-7").css("background", "black");
+            $(name + " .part-7").addClass("change");
+        }
+        if (num === 9) {
+            $(name + " .part-7").css("background", "black");
+            $(name + " .part-7").addClass("change");
+        }
+        if (num === 0) {
+            $(name + " .part-2").css("background", "black");
+            $(name + " .part-2").addClass("change");
+        }
+    }
+</script>
+
+</html>

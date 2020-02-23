@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>机械时钟</title>
+
+    <style>
+        body {
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        /* 表盘 */
+        
+        .clock {
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            border-radius: 100px;
+            background-color: #292a38;
+            position: relative;
+        }
+        
+        .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: white;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: -5px;
+            margin-left: -5px;
+        }
+        /* 刻度 */
+        
+        .line-demo {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            background: red;
+            left: 50%;
+            top: 50%;
+            transform-origin: left center;
+            transform: rotate(-30deg) translate(75px, -5px);
+        }
+        
+        .hour li {
+            position: absolute;
+            width: 10px;
+            height: 6px;
+            background: white;
+            left: 50%;
+            top: 50%;
+            transform-origin: left center;
+        }
+        
+        .min li {
+            position: absolute;
+            width: 5px;
+            height: 2px;
+            background: white;
+            left: 50%;
+            top: 50%;
+            transform-origin: left center;
+        }
+        
+        .numbers li {
+            position: absolute;
+            height: 10px;
+            width: 10px;
+            transform: translate(-50%, -50%);
+            font-family: 'Microsoft Yahei';
+            font-size: 15px;
+            color: #fff;
+        }
+        /* 指针 */
+        
+        .p-hour {
+            position: absolute;
+            width: 45px;
+            height: 3px;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+            background: #fff;
+            margin-top: -2px;
+        }
+        
+        .p-min {
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+            background: #fff;
+            margin-top: -2px;
+        }
+        
+        .p-sec {
+            position: absolute;
+            width: 80px;
+            height: 1px;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+            background: #fff;
+            margin-top: -2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <ul class="min"></ul>
+        <ul class="hour"></ul>
+        <ul class="numbers">
+            <li style="left: 140px; top: 25px">1</li>
+            <li style="left: 170px; top: 50px">2</li>
+            <li style="left: 184px; top: 95px">3</li>
+            <li style="left: 170px; top: 135px">4</li>
+            <li style="left: 142px; top: 165px">5</li>
+            <li style="left: 100px; top: 175px">6</li>
+            <li style="left: 60px; top: 160px">7</li>
+            <li style="left: 32px; top: 135px">8</li>
+            <li style="left: 20px; top: 95px">9</li>
+            <li style="left: 30px; top: 53px">10</li>
+            <li style="left: 60px; top: 25px">11</li>
+            <li style="left: 100px; top: 15px">12</li>
+        </ul>
+        <ul class="pointer">
+            <li class="p-hour"></li>
+            <li class="p-min"></li>
+            <li class="p-sec"></li>
+            <li class="circle"></li>
+        </ul>
+    </div>
+</body>
+
+<script>
+    window.onload = function() {
+        CreateHourLines();
+        CreateMinLines();
+        move();
+    }
+
+    function CreateHourLines() {
+        /* 绘制钟表的时钟刻度线 */
+        var html = "";
+        // key1表示x方向上的偏移量，key2表示y方向上的偏移量
+        var val, key1, key2;
+        for (var i = 0; i < 12; i++) {
+            val = i * 30;
+            key1 = 88;
+            key2 = 0;
+            if (val > 180 && val < 360) {
+                key1 = 90;
+            }
+            if (val > 0 && val < 180) {
+                key1 = 85
+            }
+
+            if (val > 90 && val < 270) {
+                key2 = 3;
+            }
+            if (val < 90 || val > 270) {
+                key2 = -3;
+            }
+            html += "<li style='transform: rotate(" + val + "deg) translate(" + key1 + "px, " + key2 + "px)'></li>";
+        }
+        $(".hour").html(html);
+    }
+
+    function CreateMinLines() {
+        /* 绘制钟表的分钟刻度线 */
+        var html = "";
+        // key1表示x方向上的偏移量，key2表示y方向上的偏移量
+        var val, key1, key2;
+        for (var i = 0; i < 60; i++) {
+            val = i * 6;
+            key1 = 90;
+            key2 = 0;
+            if (val > 90 && val < 270) {
+                key2 = 1;
+            }
+            if (val < 90 || val > 270) {
+                key2 = -1;
+            }
+            html += "<li style='transform: rotate(" + val + "deg) translate(" + key1 + "px, " + key2 + "px)'></li>";
+        }
+        $(".min").html(html);
+    }
+
+    function move() {
+        setInterval(function() {
+            // 获取当前时刻
+            var date = new Date();
+            var sec = date.getSeconds();
+            var min = date.getMinutes();
+            var hour = date.getHours();
+            // 计算各指针对应的角度
+            var secAngle = sec * 6 - 90; // s*6-90
+            var minAngle = min * 6 + sec * 0.1 - 90; // m*6+s*0.1-90
+            var hourAngle = hour * 30 + min * 0.5 - 90; // h*30+m*0.5 - 90
+            // 转动指针
+            $(".p-sec").css("transform", "rotate(" + secAngle + "deg)");
+            $(".p-min").css("transform", "rotate(" + minAngle + "deg)");
+            $(".p-hour").css("transform", "rotate(" + hourAngle + "deg)");
+        }, 1000)
+    }
+</script>
+
+</html>
