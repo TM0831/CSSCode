@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 3D</title>
+    <style>
+        .back {
+            margin: 50px auto;
+            perspective: 800px;
+            perspective-origin: 50% 50%;
+        }
+        
+        .content {
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            transition: transform 3s linear;
+            position: relative;
+            margin-left: 300px
+        }
+        
+        .face {
+            width: 160px;
+            height: 160px;
+            padding: 20px;
+            color: white;
+            position: absolute;
+            transition: transform 1s linear;
+        }
+        
+        #f1 {
+            background-color: aqua;
+        }
+        
+        #f2 {
+            background-color: blue;
+            transform-origin: right;
+            transform: rotateY(-90deg)
+        }
+        
+        #f3 {
+            background-color: green;
+            transform-origin: top;
+            transform: rotateX(-90deg)
+        }
+        
+        #f4 {
+            background-color: yellow;
+            transform-origin: bottom;
+            transform: rotateX(90deg)
+        }
+        
+        #f5 {
+            background-color: red;
+            transform-origin: left;
+            transform: rotateY(90deg)
+        }
+        
+        #f6 {
+            background-color: pink;
+            transform: translateZ(-200px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <div class="content" id="content">
+            <div class="face" id="f1"></div>
+            <div class="face" id="f2"></div>
+            <div class="face" id="f3"></div>
+            <div class="face" id="f4"></div>
+            <div class="face" id="f5"></div>
+            <div class="face" id="f6"></div>
+        </div>
+    </div>
+</body>
+
+<script>
+    setInterval(function() {
+        for (var i = 1; i < 361; i++) {
+            var ele = document.getElementById("content");
+            ele.style.transform = "rotate(" + i + "deg)";
+        }
+    }, 1000)
+</script>
+
+</html>
